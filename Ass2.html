@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="lib/d3/d3.min.js"></script>
+<script type="text/javascript" src="lib/d3-tip.min.js"></script>
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script src="colorbrewer.min.js"></script>
+
+	<title></title>
+	<style>
+	.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+    .chart rect {
+        fill: steelblue;
+    }
+
+        .chart rect:hover {
+            fill: turquoise;
+        }
+
+    .chart .rectM {
+        stroke: green;
+        stroke-width: 1;
+        fill: green;
+        fill-opacity: .2;
+    }
+
+        .chart .rectM:hover {
+            fill: green;
+            fill-opacity: .5;
+        }
+
+    .chart text {
+        font: 10px sans-serif;
+    }
+
+    .chart .title {
+        font: 15px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    </style>
+
+</head>
+<body>
+<div class="chart"></div>
+
+<script type="text/javascript">
+	
+d3.csv("s1.csv",function(error,data){
+	
+	console.log(data)
+	/*for (var i=0;i<data.length;i++){
+
+    	yearsvalue= years.map(function(name) {return data[i][name] });
+    	if(!json.hasOwnProperty(data[i]["Country Name"]))
+    		json[data[i]["Country Name"]]={};
+    		if(data[i]["Series Name"]=="GDP per capita, PPP (current international $)"||data[i]["Series Name"]=="Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)"||data[i]["Series Name"]=="Annualized average growth rate in per capita real survey mean consumption or income, total population (%)"||data[i]["Series Name"]=="Bribery incidence (% of firms experiencing at least one bribe payment request)" || data[i]["Series Name"]=="Adequacy of social protection and labor programs (% of total welfare of beneficiary households)"||data[i]["Series Name"]=="Adjusted net enrolment rate, primary, both sexes (%)"||data[i]["Series Name"]=="Consumer price index (2010 = 100)"||data[i]["Series Name"]=="Electric power consumption (kWh per capita)"||data[i]["Series Name"]=="GDP growth (annual %)" || data[i]["Series Name"]=="Gross enrolment ratio, pre-primary, both sexes (%)"||data[i]["Series Name"]=="Gross enrolment ratio, secondary, both sexes (%)"||data[i]["Series Name"]=="Gross enrolment ratio, tertiary, both sexes (%)"||data[i]["Series Name"]=="Inflation, GDP deflator (annual %)"||data[i]["Series Name"]=="Inflation, consumer prices (annual %)"||data[i]["Series Name"]=="Internet users (per 100 people)"||data[i]["Series Name"]=="Life expectancy at birth, total (years)"|| data[i]["Series Name"]=="Mobile cellular subscriptions (per 100 people)")
+
+    		json[data[i]["Country Name"]][data[i]["Series Name"]]=yearsvalue; 
+
+
+
+	}
+	console.log(json)*/
+
+
+var height = $(window).height()/1.2;
+var width = $(window).width()/1.5;
+var margin = 120;
+
+
+var labelX = 'Poverty';
+var labelY = 'HDI';
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([10, 0])
+  .html(function(d) {
+    return "<strong>Country:</strong> <span style='color:red'>" + d.Country +"<br><strong>PPP:</strong>"+d.PPP+"<br><strong>HDI:</strong>"+ d.HDI+"<br><strong>Corruption:</strong>"+d.Corruption+"<br><strong>Poverty rate:</strong>"+d.Poverty+"</span>";
+  });
+var svg = d3.select('.chart')
+                    .append('svg')
+                    .attr('class', 'chart')
+                    .attr("width", width + margin + margin)
+                    .attr("height", height + margin + margin)
+                    .append("g")
+                    .attr("transform", "translate(" + margin + "," + margin + ")");
+  svg.call(tip);
+                    
+                    var numColors = 9;
+
+var heatmapColour = d3.scale.quantize()
+  .domain([60,20])
+  .range(colorbrewer.Reds[numColors]);
+
+// use the heatmap to fill in a canvas or whatever you want to do...
+
+var x = d3.scale.linear()
+					            .domain([d3.min(data, function (d) { return d.Poverty; }), d3.max(data, function (d) {console.log(d.Poverty); return d.Poverty; })])
+					            .range([0, width]);
+
+var y = d3.scale.linear()
+					            .domain([d3.min(data, function (d) { return d.HDI; }), d3.max(data, function (d) { console.log(d.HDI); return d.HDI; })])
+					            .range([height, 0]);
+
+var sc = d3.scale.linear().domain([1000,20000]).range([5, 20]);
+
+var opacity = d3.scale.sqrt()
+					            .domain([d3.min(data, function (d) { return d.Corruption; }), d3.max(data, function (d) {console.log(d.Corruption); return d.Corruption; })])
+					            .range([1, .5]);
+                                
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis().scale(x);
+ var yAxis = d3.svg.axis().scale(y).orient("left");
+ 
+  						svg.append("g")
+					        .attr("class", "y axis")
+					        .call(yAxis)
+					        .append("text")
+						        .attr("transform", "rotate(-90)")
+						        .attr("x", 20)
+						        .attr("dy", ".71em")
+						        .style("text-anchor", "end")
+						        .text(labelY);
+                          // x axis and label
+                          svg.append("g")
+                              .attr("class", "x axis")
+                              .attr("transform", "translate(0," + height + ")")
+                              .call(xAxis)
+                              .append("text")
+                                  .attr("x", width + 20)
+                                  .attr("dy", ".71em")
+                                  .style("text-anchor", "end")
+                                  .text(labelX);
+ 
+svg.selectAll("circle")
+                              .data(data)
+                              .enter()
+                              .insert("circle")
+                              .attr("cx", width / 2)
+                              .attr("cy", height / 2)
+                              .attr("opacity", function (d) { return opacity(d.Corruption); })
+                              .attr("r", function (d) { return sc(d.PPP); })
+                              .style("fill", function (d) { return heatmapColour(d.Corruption); })
+                              .on('mouseover', tip.show)
+									                              
+
+                             .on('mouseout', tip.hide) 
+                                 
+                             
+                             .transition()
+                            .delay(function (d, i) { return x(d.Poverty) - y(d.HDI); })
+                            .duration(500)
+                            .attr("cx", function (d) { return x(d.Poverty); })
+                            .attr("cy", function (d) { return y(d.HDI); })
+                            .ease("bounce");
+
+function fade(c, opacity) {
+                              svg.selectAll("circle")
+                                  .filter(function (d) {
+                                      return d.PPP != PPP;
+                                  })
+                                .transition()
+                                 .style("opacity", opacity);
+                          }
+
+                          function fadeOut() {
+                              svg.selectAll("circle")
+                              .transition()
+                                 .style("opacity", function (d) { opacity(d.PPP); });
+                          }
+            
+});                 
+
+
+
+</script>
+<div class="answer">
+	<h3>Goal of the visualization</h3>
+
+	There is a general pessimism among the Lebanese about the economic situation and living standards of the country. This visualization aims to answer whether Lebanon's situation is as bad as the Lebanese think by comparing it to other non-oil rich MENA countries based on 4 factors: HDI, PPP per Capita, Poverty rate and corruption. 
+
+	<h3> Getting the data</h3> 
+	There is a lack of available data among MENA countries, the databse of the UN was incomplete but it linked to the world bank database. There also I found non-consistency in the database. Eventually, I manually wrote a csv file getting the PPP per capita from the world bank, the corruption index from transparency.org, the poverty rate from various articles and the HDI from hdr.undp.org. 
+
+	</h3> Visualization</h3>
+
+	I chose a bubble chart since it allows me to visualize all 4 factors in a single visualization and clearly display the strength and weaknesses of each country relative to others. I used the x axis to refer to the poverty rate, the y axis to refer to the HDI, the redness to refer to correption(the more red is a bubble the more it is corrupt) and the size to refer to the PPP. 
+
+	<h3>Conclusion</h3>
+
+	Based on the data visualization, we can see that Lebanon is doing well economically compared to the rest of non-oil rich MENA countries, having the second highest PPP per capita. However, Lebanon is not performing very well in terms of poverty rate being surpassed by four out of the 7 other MENA countries. This hints to a high income inequality in Lebanon. Paradoxically, Lebanon is the most second most corrupt country among the 8, right after pre-war Syria while also holding the highest HDI. To answer the question, Lebanon overall is not doing so bad compared to the rest of the MENA region, however corruption and income inequality which are both local issues unrelated to the regional challenges. This shows that Lebanon is not using its full potential and can improve the lives of its citizens by reducing corruption and income inequality to at least regional levels. 
+</div>
+
+</body>
+</html>

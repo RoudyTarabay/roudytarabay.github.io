@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.land {
+  fill: #222;
+}
+
+.county-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1px;
+
+}
+
+.spin{
+  fill:red;
+  z-index: 1000;
+
+}
+  
+
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.chart{
+  position:absolute;
+  width: 30%  ;
+  height:70%;
+  background-color: cyan;
+  z-index: 2;
+  visibility: hidden;
+}
+
+#pie{
+  position:relative;
+  width:100%;
+  height:30%;
+  background-color: blue;
+  margin-top: 2% ;
+
+
+
+}
+#line{
+  position:relative;
+  width:100%;
+  height:30%;
+  background-color: blue;
+  margin-top: 2% ;
+
+
+}
+#histogram{
+  position:relative;
+  width:100%;
+  height:30%;
+  background-color: blue;
+  margin-top: 2% ;
+
+
+
+}
+</style>
+<head>
+  
+
+<script type="text/javascript" src="lib/loader.js"></script>
+
+<script src="lib/d3/d3.min.js"></script>
+<script src="lib/topojson.min.js"></script>
+<script src="lib/d3-tip.min.js"></script>
+<script src="lib/jquery.min.js"></script>   
+</head>
+<body>
+
+
+<div class="chart">
+  <div id="pie"></div>
+  <div id="line"></div>
+  <div id="histogram"></div>
+
+
+</div>
+ 
+<script>
+
+      google.charts.load("current", {packages:["corechart"]});
+      get_jsons();
+  
+function get_jsons(){  
+    $.ajax({
+       url: "1996_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_1996p1 = $.parseJSON(dataTest);
+                 console.log(json_1996p1);
+          $.ajax({
+       url: "1997_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest1) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_1997p1 = $.parseJSON(dataTest1);
+console.log(json_1997p1);            
+        $.ajax({
+       url: "1998_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest2) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_1998p1 = $.parseJSON(dataTest2);
+                console.log(json_1998p1);
+        $.ajax({
+       url: "1999_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest3) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_1999p1 = $.parseJSON(dataTest3);
+                console.log(json_1999p1)
+        
+        $.ajax({
+       url: "2000_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest4) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2000p1 = $.parseJSON(dataTest4);
+                
+        //drawChart(json_1996p1);
+        $.ajax({
+       url: "2001_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest5) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2001p1 = $.parseJSON(dataTest5);
+                
+        $.ajax({
+       url: "1999_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest6) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_1999p1 = $.parseJSON(dataTest6);
+                
+        $.ajax({
+       url: "2003_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest7) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2003p1 = $.parseJSON(dataTest7);
+                
+        $.ajax({
+       url: "2004_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest8) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2004p1 = $.parseJSON(dataTest8);
+                $.ajax({
+       url: "2005_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest9) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2005p1 = $.parseJSON(dataTest9);
+                $.ajax({
+       url: "2006_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest9) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2006p1 = $.parseJSON(dataTest9);
+                
+        $.ajax({
+       url: "2007_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest10) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2007p1 = $.parseJSON(dataTest10);
+                
+        $.ajax({
+       url: "2008_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest11) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2008p1 = $.parseJSON(dataTest11);
+                $.ajax({
+       url: "2009_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest12) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2009p1 = $.parseJSON(dataTest12);
+                $.ajax({
+       url: "2010_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest13) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2010p1 = $.parseJSON(dataTest13);
+                
+        $.ajax({
+       url: "2011_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest14) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2011p1 = $.parseJSON(dataTest14);
+                $.ajax({
+       url: "2012_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest15) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2012p1 = $.parseJSON(dataTest15);
+                $.ajax({
+       url: "2013_part1.php",
+           //force to handle it as text
+       dataType: "text",
+            success: function (dataTest16) {
+
+                //data downloaded so we call parseJSON function 
+                //and pass downloaded data
+                 json_2013p1 = $.parseJSON(dataTest16);
+               /* drawChart(json_1996p1,json_1997p1,json_1998p1,json_1999p1,json_2000p1,json_2001p1,json_1999p1,json_2003p1,json_2004p1,json_2005p1,json_2006p1,json_2007p1,json_2008p1,json_2009p1,json_2010p1,json_2011p1,json_2012p1,json_2013p1);*/
+        
+      }
+  });
+        
+      }
+  });
+        
+      }
+  });
+      }
+  });
+        
+      }
+  });
+        
+      }
+  });
+      }
+  });
+      }
+  });
+        
+      }
+  });
+        
+      }
+  });
+        //drawChart(json_1996p1);
+             }
+  });
+        //drawChart(json_1996p1);
+             }
+  });
+             }
+  });
+        
+        
+      //  drawChart(json_1996p1);
+             }
+  });
+             }
+  });
+             }
+  });
+             }
+  });
+}
+});
+}
+function facultysalary(datar96, datar97,datar98,datar99,datar00,datar01,datar02,datar03,datar04,datar05,datar06,datar07, datar08, datar09,datar10,datar11,datar12,datar13,uniname,divId) {
+      var obj96 = datar96;
+      var obj97 = datar97;
+      var obj98 = datar98;
+      var obj99 = datar99;
+
+
+
+      var uni96 = obj96[uniname];
+     // console.log(uni96);
+      var uni97 = obj97[uniname];
+      //      console.log(uni97);
+      var uni98 = obj98[uniname];
+      //      console.log(uni98);
+      var uni99 = obj99[uniname];
+      
+      
+
+        //    console.log(uni99);
+        console.log(uniname)
+        console.log(uni96)
+        console.log(uni97)
+
+        console.log(uni98)
+
+        console.log(uni99)
+
+
+        console.log(uni96.avgfacsal)
+        console.log(uni97.avgfacsal)
+                console.log(uni98.avgfacsal)
+
+        console.log(uni99.avgfacsal)
+
+    var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales'],
+          ['1996',  parseInt(uni96.avgfacsal)],
+          ['1997',  parseInt(uni97.avgfacsal)],
+          ['1998',  parseInt(uni98.avgfacsal) ],
+          ['1999',  parseInt(uni99.avgfacsal)]
+      
+     
+         
+        ]);
+    
+
+        var options = {
+          title: 'Average Faculty Salary',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById(divId));
+        if(data.getNumberOfRows()==0)
+          chart.append("No Data Available")
+        else
+          chart.draw(data, options)
+    
+  //console.log(datar);
+    /*var obj = datar;
+    var uniName = "COMMUNITY COLLEGE OF THE AIR FORCE";
+    var uni = obj[uniName];
+    console.log(uni);
+    var data = google.visualization.arrayToDataTable([
+     ['Language', 'Speakers (in millions)'],
+          ['Agriculture',  uni.agriculture],
+          ['Architecture',  uni.architexture],
+          ['Cultural Studies',  uni.culturestudies],
+          ['Comm Arts',  uni.commArts],
+      ['comm Tech',  uni.comTech],
+          ['Computer Science',  uni.compsci],
+          ['Culinary',  uni.culinary],
+          ['Education',  uni.education],
+          ['Engineering',  uni.engineering],
+          ['Engineering Related',  uni.engineeringRelated],
+          ['Linguistics',  uni.linguistics],
+          ['Familial Sciences',  uni.famSciences],
+          ['Legal',  uni.legal],
+          ['Literature',  uni.literature],
+      ['Liberal Arts',  uni.liberalArts],
+          ['Library',  uni.library],
+          ['Biology',  uni.Biology],
+          ['Mathematics',  uni.mathematics],
+          ['Military',  uni.military],
+          ['Multiple Studies',  uni.multiStudies],
+          ['Fitness Studies',  uni.fitnessStudies],
+      ['Philosophy',  uni.philosophy],
+      ['Theology',  uni.theology],
+      ['Physical Sciences',  uni.physicalSciences],
+      ['Tech',  uni.tech],
+      ['Psychology',  uni.psychology],
+      ['Law Enforcement',  uni.lawEnforcement],
+      ['Public Administration',  uni.publicAdministration],
+      ['Social Sciences',  uni.socialSciences],
+      ['Construction',  uni.construction],
+      ['Mechanics',  uni.mechanics],
+      ['Precision Production',  uni.precisionproduction],
+      ['Transport',  uni.transport],
+      ['Visual Arts',  uni.visualArts],
+      ['Health',  uni.healthProffessions],
+      ['Business',  uni.business],
+      ['History',  uni.history]
+        ]);
+
+      var options = {
+        legend: 'none',
+        pieSliceText: 'label',
+        title: 'Swiss Language Use (100 degree rotation)',
+        pieStartAngle: 100,
+      };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);*/
+      }
+  
+var counties=0;
+var width = $(window).width(),
+    height = $(window).height();
+var projection = d3.geo.albersUsa()
+    .scale(1000)
+    .translate([width / 2, height / 2]);
+var path = d3.geo.path()
+    .projection(projection);
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+var g=svg.append("g");
+d3.json("us.json", function(error, us) {
+  
+  if (error) throw error;
+  g.insert("path", ".graticule")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+
+ 
+  g.insert("path", ".graticule")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "state-boundary")
+      .attr("d", path)
+
+
+
+
+d3.csv("unidata2013.csv",function(error,data){
+   var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Name: </strong> <span style='color:red'>" + d.INSTNM+"</span></strong>"
+  })
+  svg.call(tip);
+
+
+g.selectAll(".spin").data(data).enter()
+.append("circle")
+    .attr("class","spin")
+    .attr("r", 1)
+    .attr("cx",0).on('mouseover', function(d){ d3.select(".chart").attr("style","visibility:visible");
+      facultysalary(json_1996p1,json_1997p1,json_1998p1,json_1999p1,json_2000p1,json_2001p1,json_1999p1,json_2003p1,json_2004p1,json_2005p1,json_2006p1,json_2007p1,json_2008p1,json_2009p1,json_2010p1,json_2011p1,json_2012p1,json_2013p1,d.INSTNM.trim().toUpperCase(),"pie")})
+    .on('mouseout', function(){d3.select(".chart").attr("style","visibility:hidden");})
+    .transition().duration(2000)
+    .attr("transform", function(d,i){
+      if (d.LONGITUDE!="NULL"&&d.LATITUDE!="NULL"&&projection([d.LONGITUDE,d.LATITUDE])!=null){
+        return "translate("+projection([d.LONGITUDE,d.LATITUDE])+")";
+      }
+    })
+   
+});
+
+
+
+    var zoom = d3.behavior.zoom().on("zoom",function() {
+
+
+            if(counties==0&&zoom.scale()>3){
+            g.insert("path", ".graticule")
+            .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b; }))
+            .attr("class", "county-boundary")
+            .attr("d", path)
+
+            counties=1;
+            }
+            if(zoom.scale()<4){
+              d3.selectAll(".county-boundary").remove();
+              counties=0;
+              console.log("hi")
+            }
+            g.attr("transform","translate("+ d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+            //g.selectAll("circle")
+            //.attr("r", nodeRadius / d3.event.scale);
+            g.selectAll("path")
+                .style('stroke-width', 0.5 / d3.event.scale )
+                .attr("d", path.projection(projection));
+            g.selectAll("circle").attr("r",1/(d3.event.scale))
+    }).scaleExtent([1, 1000]);
+
+    svg.call(zoom);
+
+
+
+
+});
+d3.select(self.frameElement).style("height", height + "px");
+
+
+
+var path = d3.geo.path()
+    .projection(projection)
+
+
+
+
+
+</script>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+<body>
+
+<center><b>Chemel followers language distribution</b></center>
+<script src="d3.min.js"></script>
+<script src="jquery.min.js"></script>
+<script src="d3-tip.min.js"></script>
+
+
+<script>
+
+var margin = {top: 50, right: 20, bottom: 30, left: 40},
+    width = $(window).width()/1.5 - margin.left - margin.right,
+    height = $(window).height()/1.5 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(5);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    console.log(d);
+    return "<strong>Language: </strong> <span style='color:red'>" + d.language+"</span></strong><br><strong>Language for: </strong> <span style='color:red'>"+d.value+" follower(s)</span></strong>";
+  });
+
+d3.json("ch.json",function(error, data) {
+  if (error) throw error;
+
+var lang=[];
+var mentionedlanguages=[];
+data=data[1];
+
+  x.domain(data.map(function(d){
+     /* if($.inArray(d.lang, mentionedlanguages))
+        console.log("bla");
+      else{
+        console.log(d.lang);
+
+        mentionedlanguages.push(d.lang);*/
+        if ($.inArray(d.lang, Object.keys(lang))!=-1) {
+          lang[d.lang]+=1;
+        }
+        else 
+          lang[d.lang]=1;
+
+        return d.lang;
+
+      //}
+
+    })
+  );
+
+
+
+  y.domain([0, 99]);
+
+
+  var formatted=[];
+  
+  for (var i in lang){
+    console.log(lang[i]);
+    formatted.push({language:i, value:lang[i]})
+  }
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Value");
+
+  svg.selectAll(".bar")
+      .data(formatted)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.language); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.value); })
+      .on("mouseover",tip.show)
+      .on("mouseout",tip.hide)
+      .attr("height",0).transition().duration(2000)
+      .attr("height", function(d) { return height - y(d.value); });
+
+
+      svg.call(tip);
+});
+
+
+</script>
+</html>

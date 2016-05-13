@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html; charset=UTF8">
+
+<style>
+
+.node {
+  cursor: pointer;
+}
+
+.node:hover {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node--leaf {
+  fill: white;
+}
+
+.label {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+.label,
+.node--root{
+
+  pointer-events: none;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+<body>
+
+<script src="lib/d3/d3.min.js"></script>
+<script src="lib/d3-tip.min.js"></script>
+<script src="lib/jquery.min.js"></script>   
+ 	
+<script>
+var AbbR=[];
+AbbR['PCIP01']='Agriculture, Agriculture Operations, And Related Sciences'
+AbbR['PCIP03']='Natural Resources And Conservation'
+AbbR['PCIP04']='Architecture And Related Services'
+AbbR['PCIP05']='Area, Ethnic, Cultural, Gender, And Group Studies'
+AbbR['PCIP09']='Communication, Journalism, And Related Programs'
+AbbR['PCIP10']='Communications Technologies/Technicians And Support Services'
+AbbR['PCIP11']='Computer And Information Sciences And Support Services'
+AbbR['PCIP12']='Personal And Culinary Services'
+AbbR['PCIP13']='Education'
+AbbR['PCIP14']='Engineering'
+AbbR['PCIP15']='Engineering Technologies And Engineering-Related Fields'
+AbbR['PCIP16']='Foreign Languages, Literatures, And Linguistics'
+AbbR['PCIP19']='Family And Consumer Sciences/Human Sciences'
+AbbR['PCIP22']='Legal Professions And Studies'
+AbbR['PCIP23']='English Language And Literature/Letters'
+AbbR['PCIP24']='Liberal Arts And Sciences, General Studies And Humanities'
+AbbR['PCIP25']='Library Science'
+AbbR['PCIP26']='Biological And Biomedical Sciences'
+AbbR['PCIP27']='Mathematics And Statistics'
+AbbR['PCIP29']='Military Technologies And Applied Sciences'
+AbbR['PCIP30']='Multi/Interdisciplinary Studies'
+AbbR['PCIP31']='Parks, Recreation, Leisure, And Fitness Studies'
+AbbR['PCIP38']='Philosophy And Religious Studies'
+AbbR['PCIP39']='Theology And Religious Vocations'
+AbbR['PCIP40']='Physical Sciences'
+AbbR['PCIP41']='Science Technologies/Technicians'
+AbbR['PCIP42']='Psychology'
+AbbR['PCIP43']='Homeland Security, Law Enforcement, Firefighting And Related Protective Services'
+AbbR['PCIP44']='Public Administration And Social Service Professions'
+AbbR['PCIP45']='Social Sciences'
+AbbR['PCIP46']='Construction Trades'
+AbbR['PCIP47']='Mechanic And Repair Technologies/Technicians'
+AbbR['PCIP48']='Precision Production'
+AbbR['PCIP49']='Transportation And Materials Moving'
+AbbR['PCIP50']='Visual And Performing Arts'
+AbbR['PCIP51']='Health Professions And Related Programs'
+AbbR['PCIP52']='Business, Management, Marketing, And Related Support Services'
+AbbR['PCIP54']='History'
+AbbR['NPT41_PUB']='Average net price for $0-$30,000 family income '
+
+AbbR['NPT42_PUB']='Average net price for $30,001-$48,000 family income '
+
+AbbR['NPT43_PUB']='Average net price for $48,001-$75,000 family income '
+
+AbbR['NPT44_PUB']='Average net price for $75,001-$110,000 family income '
+
+AbbR['NPT45_PRIV']='Average net price for $110,000+';
+
+AbbR['NPT41_PRIV']='Average net price for $0-$30,000 family income '
+
+AbbR['NPT42_PRIV']='Average net price for $30,001-$48,000 family income '
+
+AbbR['NPT43_PRIV']='Average net price for $48,001-$75,000 family income '
+
+AbbR['NPT44_PRIV']='Average net price for $75,001-$110,000 family income '
+
+AbbR['NPT45_PRIV']='Average net price for $110,000+';
+
+
+var margin = 20,
+    diameter = $(window).height();
+
+var color = d3.scale.linear()
+    .domain([-1, 5])
+    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+    .interpolate(d3.interpolateHcl);
+
+var pack = d3.layout.pack()
+    .padding(2)
+    .size([diameter - margin, diameter - margin])
+    .value(function(d) { return d.size; })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+  .append("g")
+    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+
+
+var avgCostPub=[];
+var avgCostPriv=[];
+
+var arr=[];
+for (var i=0;i<8000;i++){
+	arr[i]=[];
+	avgCostPub[i]=[];
+ 	avgCostPriv[i]=[];
+
+}
+ 	
+function type(d){
+	var suffix1="_PUB"
+	var suffix2="_PRIV"
+
+	for(var i=41;i<46;i++){
+		if(!isNaN(parseFloat(d["NPT"+i+suffix1]))&&parseFloat(d["NPT"+i+suffix1])!=null&&d["NPT"+i+suffix1]!=="NULL"&&parseFloat(d["NPT"+i+suffix1])>=0&&parseFloat(d["NPT"+i+suffix1])<5000){
+			avgCostPub[i].push({"name":d.INSTNM,"size":parseInt(d["NPT"+i+suffix1])});
+		}
+		if(!isNaN(parseFloat(d["NPT"+i+suffix2]))&&parseFloat(d["NPT"+i+suffix2])!=null&&d["NPT"+i+suffix2]!=="NULL"&&parseFloat(d["NPT"+i+suffix2])>=0&&parseFloat(d["NPT"+i+suffix2])<10000)
+			avgCostPriv[i].push({"name":d.INSTNM,"size":d["NPT"+i+suffix2]});
+
+
+	}
+	
+
+	for(var i=0;i<10;i++){
+		if("PCIP0"+i in d)
+		if(!isNaN(parseFloat(d["PCIP0"+i]))&&parseFloat(d["PCIP0"+i])!=null&&d["PCIP0"+i]!=="NULL"&&d["PCIP0"+i]>=0.3){
+			arr[i].push({"name":d.INSTNM,"size":parseFloat(d["PCIP0"+i])*100});
+
+		}
+	}
+	for(var i=10;i<55;i++){
+		if("PCIP"+i in d)
+			if(!isNaN(parseFloat(d["PCIP"+i]))&&parseFloat(d["PCIP"+i])!=null&&d["PCIP"+i]!=="NULL"&&d["PCIP"+i]>=0.3){
+				arr[i].push({"name":d.INSTNM,"size":parseFloat(d["PCIP"+i])*100});
+
+		}
+	}
+
+}
+
+d3.csv("merged_2013_PP.csv",type, function(error, root) {
+  if (error) throw error;
+
+/*var obj={
+  "name":"awesome chart",
+  "children":[{
+   "name": "Percentage of Degree",
+   "children": [
+    {
+     "name": "agriculture",
+     "children": [
+      {"name": "AgglomerativeCluster", "size": 3938},
+      {"name": "CommunityStructure", "size": 3812},
+      {"name": "HierarchicalCluster", "size": 6714},
+      {"name": "MergeEdge", "size": 743}
+     ]
+    },
+    {
+     "name": "natural reserve",
+     "children": [
+      {"name": "BetweennessCentrality", "size": 3534},
+      {"name": "LinkDistance", "size": 5731},
+      {"name": "MaxFlowMinCut", "size": 7840},
+      {"name": "ShortestPaths", "size": 5914},
+      {"name": "SpanningTree", "size": 3416}
+     ]
+    },
+    {
+     "name": "optimization",
+     "children": [
+      {"name": "AspectRatioBanker", "size": 7074}
+     ]
+    }
+   ]*/
+var childLevel2=[]
+
+for(var i=0;i<10;i++){
+	if("PCIP0"+i in AbbR ){
+	  var tempobj={"name":AbbR["PCIP0"+i],"children":arr[i]};
+	  childLevel2.push(tempobj);
+
+	}
+}
+
+for(var i=10;i<55;i++){
+	if("PCIP"+i in AbbR ){
+	  var tempobj={"name":AbbR["PCIP"+i],"children":arr[i]};
+	  childLevel2.push(tempobj);
+
+	}
+}
+var tempobj2={"name":"Percentage of Degree Awarded","children":childLevel2};
+var childlevel1=[];
+childlevel1.push(tempobj2);
+
+var childlevel4=[];
+
+for(var i=41;i<46;i++){
+	if(i in avgCostPub ){
+	  var tempobj={"name":AbbR["NPT"+i+"_PUB"],"children":avgCostPub[i]};
+	  childlevel4.push(tempobj);
+
+	}
+}
+var childlevel4_2=[];
+
+for(var i=41;i<46;i++){
+	if(i in avgCostPriv ){
+	  var tempobj={"name":AbbR["NPT"+i+"_PRIV"],"children":avgCostPriv[i]};
+	  childlevel4_2.push(tempobj);
+
+	}
+}
+var tempobj1={"name":"Public Institutions", "children":childlevel4 };
+var childlevel3=[]
+
+var tempobj1_2={"name":"Private Institutions", "children":childlevel4_2 };
+
+childlevel3.push(tempobj1);
+childlevel3.push(tempobj1_2)
+var tempobj2={"name":"Average cost","children":childlevel3};
+var childlevel2=[];
+childlevel2.push(tempobj2);
+var tempobj3={"name":"finances","children":childlevel2}
+childlevel1.push(tempobj3);
+var globObj={"name":"global","children":childlevel1}
+
+//  var tempobj1={"name":" Agriculture, Agriculture Operations, And Related Sciences","children":agri};
+  //var tempobj1Natural={"name":"Natural Resources And Conservation","children":natu};
+  
+  //var child2=[]
+  
+  //child2.push(tempobj1);
+  //child2.push(tempobj1Natural)
+  /*var tempobj2={"name":"Percentage of Degree Awarded","children":child2};
+  var child1=[];
+  child1.push(tempobj2)
+  var agriculture={"name":"awesome", "children":child1};
+  console.log(agriculture)*/
+  console.log(globObj)
+
+  var focus = globObj,
+      nodes = pack.nodes(globObj),
+      view;
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>University Name: </strong> <span style='color:red'>" + d.name + "</span><br><br><strong>Value: </strong> <span style='color:red'>"+d.size+"</span>";
+  })
+  var circle = svg.selectAll("circle")
+      .data(nodes)
+    .enter().append("circle")
+      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+      .style("fill", function(d) { return d.children ? color(d.depth) : null; })
+      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
+      .on("mouseover",tip.show)
+      .on("mouseout",tip.hide);
+
+
+  var text = svg.selectAll("text")
+      .data(nodes)
+    .enter().append("text")
+      .attr("class", "label")
+      .style("fill-opacity", function(d) { return d.parent === globObj ? 1 : 0; })
+      .style("display", function(d) { return d.parent === globObj ? "inline" : "none"; })
+      .text(function(d) { 
+
+      	if (d.parent==globObj)
+      	return d.name; });
+
+svg.call(tip)
+  var node = svg.selectAll("circle,text");
+
+  d3.select("body")
+      .style("background", color(-1))
+      .on("click", function() { zoom(globObj); });
+
+  zoomTo([globObj.x, globObj.y, globObj.r * 2 + margin]);
+
+  function zoom(d) {
+    var focus0 = focus; focus = d;
+
+    var transition = d3.transition()
+        .duration(d3.event.altKey ? 7500 : 750)
+        .tween("zoom", function(d) {
+          var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+          return function(t) { zoomTo(i(t)); };
+        });
+
+    transition.selectAll("text")
+      .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+        .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
+        .each("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+        .each("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+  }
+
+  function zoomTo(v) {
+    var k = diameter / v[2]; view = v;
+    node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+    circle.attr("r", function(d) { return d.r * k; });
+  }
+
+});
+
+d3.select(self.frameElement).style("height", diameter + "px");
+
+</script>
