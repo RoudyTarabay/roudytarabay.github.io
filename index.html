@@ -1,124 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<title>
-		
-		Data Visualization Course
-	</title>
-<style type="text/css">
-	
-#assignmentheader{
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	width:100%;
-	text-align: left;
-	font-size:20px;
-}
-#projectheader{
+    <link rel="stylesheet" type="text/css" href="lib/normalize.css/normalize.css" defer>
 
-	width:100%;
-	text-align: left;
-	font-size:20px;
-	background-color: darkred;
-	border-color: darkred;
+    <script src="lib/jquery.min.js" defer></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" defer>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="js/index.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css" defer>
 
-}
-#LebMunElections2016{
-	width:100%;
-	text-align: left;
-	font-size:20px;
-	background-color: darkgreen;
-	border-color: darkgreen;
-}
+    <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.6.2/css/font-awesome.min.css" defer>
 
-#assignment1{
-	width:90%;
-	text-align: left;
-}
-#assignment2{
-	width:90%;
-	text-align: left;
-}
-#assignment3{
-	width:90%;
-	text-align: left;
-}
 
-a{
-	width:80%;
-	text-align: left;
 
-}
-.link{
-		text-align: left;
-
-}
-
-#deathmap{
-		background-color: darkred;
-		border-color: darkred;
-}
-
-#bubblechart{
-		background-color: darkred;
-		border-color: darkred;
-}
-</style>
 </head>
 <body>
-	  <button id="assignmentheader" type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Assignments</button>
-	  <div id="demo" class="collapse">
-		<button id="assignment1" type="button" class="btn btn-info" data-toggle="collapse" data-target=".link1">Assignment 1</button>
 
-			<div id="demo2" class="link1 link collapse">
-				<a class="btn btn-info" href="GroupedBarChart.html">Part 1</a>
+    <nav>
+        <ul id="navList">
+            <li class="parallelogram"><div  class="original" name="about"><a class="nav-links" style="background-color:#B56357" href="javascript:;" name="about" >About</a></div></li>
+            <li class="parallelogram"><div class=" original" name="projects"><a class="nav-links" name="projects" style="background-color:#B4DBC0"  href="javascript:;" >Projects</a></div></li>
+            <li class="parallelogram"><div class=" original" name="hire-me"><a  class="nav-links" href="javascript:;" style="background-color:#A7B3A5" name="hire-me" >Hire Me</a></div></li>
 
-			</div>
-			<div class="link1 collapse">
-				<a class="btn btn-info" href="Ass2.html">Part 2</a>
+        </ul>
 
-			</div>
-	   <button id="assignment2" type="button" class="btn btn-info" data-toggle="collapse" data-target=".link2">Assignment 3</button>
+    </nav>
+    <div id="intro">
+        <h1 class="myName">Roudy Tarabay</h1>
+        <p id="description"> I'm a web developer based in Byblos-Lebanon, focusing on front-end development and specializing in data visualization. I use HTML5, JavaScript, CSS3 and D3.js to create responsive websites and interactive <visualizations class=""></visualizations></p>
+        <hr>
+        <div id="widget">
+            <a target="_blank" class="widget-container hoverable" href="https://github.com/RoudyTarabay"><i class="fa fa-github-square fa-3x" aria-hidden="true"></i></a>
+            <a target="_blank" class="widget-container hoverable" href="https://www.facebook.com/profile.php?id=100009969553788"><i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i></a>
+            <script src="https://platform.twitter.com/widgets.js"></script><a target="_blank" class="widget-container hoverable collapsed" href="https://twitter.com/intent/follow?screen_name=@RoudyTarabay">
+            <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i> </a>
 
-			<div id="demo3" class="link link2 collapse">
-				<a class="btn btn-info" href="Assg3/linechart.html">Movie genre per gender</a>
+            <a target="_blank" href="mailto:roudy.tarabay@gmail.com" class="widget-container hoverable collapsed" ><i class="fa fa-envelope-square fa-3x" aria-hidden="true"></i></a>
 
-			</div>
-			<div class="link link2 collapse">
-				<a class="btn btn-info" href="Assg3/GroupedBarChart.html">Movie genre per job </a>
 
-			</div>
-			<div class="link link2 collapse">
-				<a class="btn btn-info" href="Assg3/stackedBarChart.html">Movie genre per gender and job </a>
 
-			</div>
-			<button id="assignment3" type="button" class="btn btn-info" data-toggle="collapse" data-target=".link3">Assignment 4</button>
 
-			<div id="demo4" class="link link3 collapse">
-				<a class="btn btn-info" href="Assg4/StatusCount.html">Followers by Status Count</a>
 
-			</div>
-			<div class="link link3 collapse">
-				<a class="btn btn-info" href="Assg4/LanguageDistribution.html">Language Distribution of followers </a>
+            <div target="_blank" id="twitter-div" class="widget-container hoverable expanded">
+                <script src="https://platform.twitter.com/widgets.js"></script><a href="https://twitter.com/intent/follow?screen_name=@RoudyTarabay" id="follow-me">
+                <i class="fa fa-twitter fa-2x" aria-hidden="true"></i><p class="icon-paragraph">Follow me @RoudyTarabay</p>
 
-			</div>
-			
-	</div>
-	
-	   
-	</div>
-	<button id="projectheader" type="button" class="btn btn-info" data-toggle="collapse" data-target="#projectcontainer">Project</button>
-			<div id="projectcontainer" class="collapse">
-				<a id="deathmap" class="btn btn-info" href="Course projecr">US Map</a>
-<a id="bubblechart" class="btn btn-info" href="Course projecr/ZoombaleBubblChart.html">Zoomable Bubble Chart</a>
+            </a>
 
-			</div>
-				
-	<br>
-<a id="LebMunElections2016" type="button" class="btn btn-info" href="http://roudytarabay.github.io/Lebanon-Municipality-Elections-2016/">Lebanese Muncipality Elections 2016</a>
-<br>
+        </div>
+        <div target="_blank" id="mail-div" class="widget-container hoverable expanded">
+            <a id="mail" href="mailto:roudy.tarabay@gmail.com">
+                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i><p class="icon-paragraph">roudytarabay@gmail.com</p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+</div>
+<div id="projects-div" name="projects" class="drawer">
+    <div class="drawer-container">
+        <div id="completed-projects" class='projects-container'>
+            <h2 class="text-content">Completed Projects & Prototypes</h2>
+            <hr>
+            <div class='image-container'>
+                <div class="overlay" name="Lebanese-Municipality-Elections-2016">
+                <p class="overlay-text">
+                    A d3.js prototype showing the results and related data of the 2016 Municipality elections in Lebanon.
+                </p>
+                </div>
+
+                <a class="img-link"  href="google.com">
+                <img src="images/Municipality-Elections-2016.gif" class="img-responsive" name="Lebanese-Municipality-Elections-2016">
+                </a>
+            </div>
+        </div>
+         <div id="ongoing-projects" class='projects-container'>
+            <h2 class="text-content">Ongoing Projects</h2>
+            <hr>
+            <div class='image-container'>
+                <div class="overlay" name="US-universities">
+                <p class="overlay-text">
+                    A d3-based tool which helps students and job seekers in academia find the universities best tailored for their needs.
+                </p>
+                </div>
+
+                <a class="img-link"  href="google.com">
+                <img src="images/USUniversities.png" class="img-responsive" name="US-universities">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id="hire-div" name="hire-me" class="drawer" >
+    <div class="drawer-container">
+  <h2 class="text-content">Availabitlity Calendar</h2>
+    <hr>
+<div id="calendar" class="flex-container">
+
+    <div class="flex-column">
+        <h3 class='date'>January 2017</h3>
+        <h4 class="available">Available<br> part time</<h5>
+    </div>
+     <div class="flex-column">
+        <h3 class='date'>February 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>Mars 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+     <div class="flex-column">
+        <h3 class='date'>April 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>May 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>June 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+
+   <div class="flex-column">
+        <h3 class='date'>July 2017</h3>
+        <h4 class="available">Available <br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>August 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+     <div class="flex-column">
+        <h3 class='date'>September 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>October 2017</h3>
+        <h4 class="available">Available<br> part time<h4>
+    </div>
+     <div class="flex-column">
+        <h3 class='date'>November 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+    <div class="flex-column">
+        <h3 class='date'>Dec 2017</h3>
+        <h4 class="available">Available<br> part time</h4>
+    </div>
+
+</div>
+</div>
+</div>
+
 </body>
+
 </html>
