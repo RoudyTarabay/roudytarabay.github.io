@@ -222,9 +222,7 @@ li {
         .nav-links:hover{
             text-decoration: none;
         }
-.nav-links:active{
-            text-decoration: none;
-}
+
         li div:hover{
             opacity: 0.6;
             cursor: pointer;
