@@ -34,7 +34,7 @@ module.exports = {
 
   },
     plugins: [
-    new ExtractTextPlugin("build/styles.css"),
+    new ExtractTextPlugin("styles.css"),
   ]
 };
 if (process.env.NODE_ENV === 'production') 
