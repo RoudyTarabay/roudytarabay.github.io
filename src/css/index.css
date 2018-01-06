@@ -105,7 +105,7 @@
     float:left;
     color: white;
 }
-#follow-me{
+.mail-twitter-links{
     text-decoration: none;
     display:inline-block;
     text-shadow: 2px 2px 2px grey;
@@ -115,10 +115,6 @@
     float: left;
 
 
-}
-#mail{
-    text-decoration: none;
-    color: white;
 }
 .widget-container:hover{
     color:#B4DBC0;
@@ -172,7 +168,7 @@ nav{
     z-index: 3;
     height:100%;
     position:fixed;
-    display: flex!important;
+    display: flex;
 
 }
 .flex-column{
@@ -186,7 +182,7 @@ nav{
 
 p{
     font-style: italic;
-    font-size: 18px;
+    font-size: 16px;
     color: #222;
 }
 .myName{

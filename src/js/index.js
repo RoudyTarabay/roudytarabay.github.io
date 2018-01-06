@@ -1,8 +1,9 @@
-require('normalize.css')
-
-import styles from '../css/index.css'
-var $=require('jquery');
 require('../../node_modules/font-awesome/css/font-awesome.min.css');
+
+require('normalize.css')
+var $=require('jquery');
+
+require('../css/index.css')
 
 
 /*function clonedListener(name,event){
