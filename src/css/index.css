@@ -69,7 +69,7 @@
     margin-top: 15px;
     display:inline-block;
 }
-#mail-div{
+.mail-twitter-div{
 
     height: 36px;
     margin-left:auto;
@@ -83,22 +83,6 @@
     background-color: #B4DBC0;
     padding-right:10px;
     transform: translate(0,-10px);
-}
-#twitter-div{
-
-    height: 35px;
-
-    box-shadow: 1.5px 1.5px 1.5px grey;
-    border-radius: .3em;
-    display: inline-block;
-    margin-bottom: 21px;
-
-    color:white;
-    font-style: italic;
-    font-size: 14px;
-
-    background-color: #B4DBC0;
-    padding-right:10px;
 }
 .fa-twitter{
     padding-left: 10px;
