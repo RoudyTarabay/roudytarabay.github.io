@@ -751,6 +751,7 @@ li {
 
         }
         .image-container{
+            display: inline-block;
             position: relative;
             padding-left: 50px;
             padding-top: 50px;
