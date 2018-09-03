@@ -28,6 +28,9 @@ hr{
     width: 100%;
     z-index: 3;
 }
+.overlay a{
+    text-decoration: none;
+}
 .overlay:hover{
     opacity: 1;
     cursor: pointer;
