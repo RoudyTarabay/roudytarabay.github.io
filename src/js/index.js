@@ -101,7 +101,7 @@ function navListener(name){
             $("div.drawer[name="+name+"]").toggleClass("open-drawer");
             console.log($('.open-drawer').width());
                     $(".parallelogram.cloned[name="+name+"]").css({
-                "transform":"translate("+($('.open-drawer').width()-5)+"px, 0px) rotate(20deg) skew(20deg)"
+                "transform":"translate("+($('.drawer').width()-5)+"px, 0px) rotate(20deg) skew(20deg)"
 
             })
         }
