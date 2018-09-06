@@ -261,7 +261,8 @@ li {
             position: absolute;
             width: 80%;
             min-height: 100%;
-            transform: translate(-200%,0);
+            visibility: hidden;
+            transform: translate(-100%,0);
             transition: transform 1s;
 
         }
@@ -274,6 +275,7 @@ li {
         }
 
         .open-drawer{
+            visibility: visible;
             transform: translate(0px,0px);
         }
         .invisible{
