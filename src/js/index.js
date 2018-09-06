@@ -58,14 +58,16 @@ function twitterButtonColor(){
 twitterButtonColor();
 function clonedListener(name,event){
     $("div.drawer[name="+name+"]").toggleClass("open-drawer");
+
     var target=event.target;
     if(target.tagName!=="DIV")
         target=event.target.parentElement;
     $(target).css({"transform" :"translate(0px, 0) rotate(20deg) skew(20deg)"});
     $(target).on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-        $(target).toggleClass("invisible")
+        $("div.drawer[name="+name+"]").addClass("hidden");
+        $(target).toggleClass("invisible");
          $(".original[name="+name+"]").toggleClass("invisible");
-         $(target).off('transitionend webkitTransitionEnd oTransitionEnd')
+         $(target).off('transitionend webkitTransitionEnd oTransitionEnd');
 
     });
 }
@@ -99,6 +101,9 @@ function navListener(name){
      
             $("div:not([name="+name+"]).drawer").removeClass("open-drawer");
             $("div.drawer[name="+name+"]").toggleClass("open-drawer");
+                if($("div.drawer[name="+name+"]").hasClass("open-drawer")){
+        $("div.drawer[name="+name+"]").removeClass("hidden");
+    }
             console.log($('.open-drawer').width());
                     $(".parallelogram.cloned[name="+name+"]").css({
                 "transform":"translate("+($('.drawer').width()-5)+"px, 0px) rotate(20deg) skew(20deg)"
