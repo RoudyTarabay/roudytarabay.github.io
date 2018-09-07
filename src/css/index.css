@@ -16,6 +16,7 @@ hr{
     opacity: 0.8;
 }
 .overlay    {
+
     position: absolute;
     display: inline-block;
     background:rgba(0,0,0,.75);
@@ -203,6 +204,7 @@ li {
     display: flex;
 }
 .nav-links{
+    cursor: pointer;
    writing-mode: tb-rl;
    white-space: nowrap;
    text-decoration: none;
@@ -259,7 +261,8 @@ li {
         }
         .hidden{
             visibility: hidden;
-            
+            overflow-y:hidden;
+            height:100%;
         }
         .drawer{
             position: absolute;
@@ -278,7 +281,10 @@ li {
         }
 
         .open-drawer{
+
             transform: translate(0px,0px);
+            transition: transform 1s;
+
         }
         .invisible{
             visibility: hidden;
@@ -317,7 +323,7 @@ li {
             display: inline-block;
             position: relative;
             margin-left: 50px;
-            padding-top: 50px;
+            margin-top: 50px;
             width: 30%;
             height: 50%;
         }
