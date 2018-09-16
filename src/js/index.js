@@ -1,9 +1,9 @@
-require('../../node_modules/font-awesome/css/font-awesome.min.css');
+//require('../../node_modules/font-awesome/css/font-awesome.min.css');
+require("font-awesome-loader");
 
-require('normalize.css')
 var $=require('jquery');
 
-require('../css/index.css')
+require('../../src/css/index.css')
 
 
 /*function clonedListener(name,event){

@@ -1,0 +1,501 @@
+
+hr{
+   border: solid 0.5px black; 
+}
+
+.white-hr{
+    border: solid 0.5px white;
+}
+
+
+.text-link{
+    color: #B4DBC0;
+    text-decoration: none;
+}
+.text-link:hover{
+    opacity: 0.8;
+}
+.overlay    {
+
+    position: absolute;
+    display: inline-block;
+    background:rgba(0,0,0,.75);
+    opacity:0;
+    transition: opacity .25s ease;
+    /*transition: opacity .25s ease;*/
+    max-height: 100%;
+    max-width:100%;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+.overlay a{
+    text-decoration: none;
+}
+.overlay:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.overlay-wrapper{
+    position: relative;
+    width: 30%;
+    height: 50%;
+}
+.phone-text{
+    padding-top: 25px;
+    padding-bottom: 25px;
+     width:100%;
+    display: none;
+}
+.overlay-text{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin:0;
+    color:white;
+    padding-left:5px;
+    font-size: 1vw;
+}
+
+
+.collapsed{
+    display: none;
+}
+#widget{
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+
+}
+.hoverable:hover{
+    cursor: pointer;
+    opacity: 0.8
+}
+.icon-paragraph{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    white-space: nowrap;
+    margin-top: 15px;
+    display:inline-block;
+}
+.mail-twitter-div{
+
+    height: 36px;
+    margin-left:auto;
+    box-shadow: 1.5px 1.5px 1.5px grey;
+    border-radius: .3em;
+    display: inline-block;
+
+    font-style: italic;
+    font-size: 18px;
+
+    background-color: #B4DBC0;
+    padding-right:10px;
+    transform: translate(0,-10px);
+}
+.fa-twitter{
+    padding-left: 10px;
+    float:left;
+    color: white;
+}
+.mail-twitter-links{
+    text-decoration: none;
+    display:inline-block;
+    text-shadow: 2px 2px 2px grey;
+    color:white;
+    font-style: italic;
+    font-size: 18px;
+    float: left;
+
+
+}
+.widget-container:hover{
+    color:#B4DBC0;
+
+}
+.widget-container{
+    text-shadow: 1px 1px 1px grey;
+    top:0;
+    color:#B4DBC0;
+
+    vertical-align: middle;
+}
+.fa-envelope{
+    color:white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    float: left;
+}
+#intro{
+
+    position:absolute;
+    height: 20%;
+    max-width:600px;
+    width: 50%;
+    height: 500px;
+    margin:auto;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    text-align: center;
+}
+body{
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+
+
+html{
+    height: 100%;
+}
+nav{
+    z-index: 3;
+    height:100%;
+    position:fixed;
+    display: flex;
+
+}
+.flex-column{
+    width: 200px;
+}
+.flex-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+p{
+    font-style: italic;
+    font-size: 16px;
+    color: #222;
+}
+.myName{
+    color: #B56357;
+}
+ul{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+li {
+
+    position: relative;
+    display: block;
+    margin-top: 5px;
+
+}
+#calendar{
+    width: 100%;
+    display: flex;
+}
+.nav-links{
+    cursor: pointer;
+   writing-mode: tb-rl;
+   white-space: nowrap;
+   text-decoration: none;
+   color: white;
+   font-weight: bold;
+   font-size: 25px;
+   padding: 10px;
+   -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Chrome/Safari/Opera */
+   -khtml-user-select: none; /* Konqueror */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+            not supported by any browser */
+
+        }
+        .nav-links:hover{
+            text-decoration: none!important;
+        }
+        .nav-links:active{
+            text-decoration: none!important;
+        }
+          .nav-links:visited{
+            text-decoration: none!important;
+        }
+        li div:hover{
+            opacity: 0.6;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-container{
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        .date{
+            color: #B56357;
+            margin-bottom: 20px;
+
+        }
+        .available{
+            font-style: italic;
+            color: white;
+        }
+        .parallelogram {
+            -webkit-transform: rotate(20deg)skew(20deg);
+            -moz-transform:  rotate(20deg)skew(20deg);
+            -o-transform:  rotate(20deg)skew(20deg);
+            transform:  rotate(20deg)skew(20deg);
+            transition: transform 1s;
+
+
+        }
+        .hidden{
+            visibility: hidden;
+            overflow-y:hidden;
+            height:100%;
+        }
+        .drawer{
+            position: absolute;
+            width: 80%;
+            min-height: 100%;
+            transform: translate(-100%,0);
+            transition: transform 1s;
+
+        }
+
+        #projects-div{
+            background-color: #B4DBC0;
+        }
+        #hire-div{
+            background-color: #A7B3A5;
+        }
+
+        .open-drawer{
+
+            transform: translate(0px,0px);
+            transition: transform 1s;
+
+        }
+        .invisible{
+            visibility: hidden;
+        }
+        .cloned{
+            z-index:-2;
+            text-decoration: none;
+
+        }
+        .cloned:hover{
+            opacity: 0.6;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .cloned:active{
+            text-decoration: none;
+        }
+        .cloned:focus{
+            text-decoration: none;
+        }
+        .img-link{
+            display:inline-block;
+            z-index: 2;
+            max-height: 100%;
+            max-width:100%;
+            height: 100%;
+            width: 100%;
+        }
+        .text-content{
+            margin: 0;
+            padding-top: 20px;
+            color:white;
+
+        }
+        .image-container{
+            display: inline-block;
+            position: relative;
+            margin-left: 50px;
+            margin-top: 50px;
+            width: 30%;
+            height: 50%;
+        }
+        .image-container img{
+            position: relative;
+            max-height: 100%;
+            max-width:100%;
+        }
+        .drawer-container{
+            width:calc(100% - 55px - 20px);
+            height: 100%;
+            padding-left: 70px;
+        }
+        .projects-container{
+            width:100%;
+            height: 40%;
+            overflow:hidden;
+        }
+        @media screen and (max-width: 1124px){
+
+            .icon-paragraph{
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 14px;
+                white-space: nowrap;
+                margin-top: 15px;
+            }
+        }
+
+        @media screen and (max-width: 1037px){
+
+            .icon-paragraph{
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 12px;
+                white-space: nowrap;
+                margin-top: 15px;
+            }
+        }
+
+
+
+        @media screen and (max-width: 970px){
+            .overlay{
+                display: none;
+            }
+
+            .overlay-text{
+                font-size: 12px;
+            }
+            .img-link:hover{
+                opacity: 0.5;
+            }      
+            .phone-text{
+                display: inline-block;
+            } 
+            .image-container{
+                width: 70%;
+                margin-left: 25px;
+                border-bottom: solid white 1px;
+
+            }
+            .icon-paragraph{
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 12px;
+                white-space: nowrap;
+                margin-top: 15px;
+            }
+        }
+
+
+
+
+        @media screen and (max-width: 867px){
+            h1{
+                font-size: 26px;
+            }
+            #description{
+                font-size: 16px;
+            }
+            .icon-paragraph{
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 18px;
+                white-space: nowrap;
+                margin-top: 15px;
+            }
+            #widget{
+                display: inline-block;
+                float: right;
+                width: 100%;
+                text-align: left;
+            }
+
+            #twitter-div{
+
+                width:100%;
+                max-width: 283px;
+                height: 40px;
+
+                box-shadow: 1.5px 1.5px 1.5px grey;
+                border-radius: .3em;
+                display: inline-block;
+                margin-bottom: 25px;
+
+                color:white;
+                font-style: italic;
+                font-size: 18px;
+
+                background-color: #B4DBC0;
+                padding-right:10px;
+            }
+            #mail-div{
+                width:80%;
+                max-width: 283px;
+                height: 40px;
+                margin-left:89px;
+                box-shadow: 1.5px 1.5px 1.5px grey;
+                border-radius: .3em;
+                display: inline-block;
+
+                font-style: italic;
+                font-size: 18px;
+
+                background-color: #B4DBC0;
+                padding-right:10px;
+                transform: translate(0,-20px);
+            }
+        }
+
+        @media screen and (max-width: 951px){
+
+            .icon-paragraph{
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 0;
+                white-space: nowrap;
+                margin-top: 15px;
+            }
+            #twitter-div{
+                width: auto;
+            }
+            #mail-div{
+                width: auto;
+                margin-left: 0;
+            }
+            .expanded{
+                display: none!important;
+            }
+            .collapsed{
+                display: inline-block;
+            }
+            .widget-container{
+                vertical-align: top;
+            }
+            #widget{
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 657px){
+            .text-content{
+                font-size: 12px;
+            }
+
+        }
+
+
+/*# sourceMappingURL=main.css.map*/
