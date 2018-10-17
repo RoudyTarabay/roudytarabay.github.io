@@ -15,6 +15,9 @@ hr{
 .text-link:hover{
     opacity: 0.8;
 }
+.cursor-arrow{
+    cursor: default!important;
+}
 .overlay    {
 
     position: absolute;
