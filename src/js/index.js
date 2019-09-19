@@ -1,9 +1,9 @@
 require('../../node_modules/font-awesome/css/font-awesome.min.css');
 
 require('normalize.css')
-var $=require('jquery');
+var $ = require('jquery');
 
-require('../css/index.css')
+import style from '../css/index.css';
 
 
 /*function clonedListener(name,event){
@@ -21,49 +21,50 @@ require('../css/index.css')
     });
 }*/
 
-$( window ).resize(function() {
-    var all_visible_cloned=$(".parallelogram.cloned:not('.invisible')");
-    all_visible_cloned.css({"transform" :"translate(0px, 0) rotate(20deg) skew(20deg)"});
-   all_visible_cloned.css({
-                "transform":"translate("+($('.drawer').width()-5)+"px, 0px) rotate(20deg) skew(20deg)"
-});
+$(window).resize(function() {
+    var all_visible_cloned = $(".parallelogram.cloned:not('.invisible')");
+    all_visible_cloned.css({ "transform": "translate(0px, 0) rotate(20deg) skew(20deg)" });
+    all_visible_cloned.css({
+        "transform": "translate(" + ($('.drawer').width() - 5) + "px, 0px) rotate(20deg) skew(20deg)"
+    });
 
 });
 
 
 
-function twitterButtonColor(){
-    $(document).ready(function(){
-        $("#follow-button").css("background-color","red!important");
+function twitterButtonColor() {
+    $(document).ready(function() {
+        $("#follow-button").css("background-color", "red!important");
 
 
     });
 }
 twitterButtonColor();
-function clonedListener(name,event){
-    console.log('cloned')
-    $("div.drawer[name="+name+"]").toggleClass("open-drawer");
 
-    var target=event.target;
-    if(target.tagName!=="DIV")
-        target=event.target.parentElement;
-    $(target).css({"transform" :"translate(0px, 0) rotate(20deg) skew(20deg)"});
-    $(target).on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-// /        $("div.drawer[name="+name+"]").addClass("hidden");
+function clonedListener(name, event) {
+    console.log('cloned')
+    $("div.drawer[name=" + name + "]").toggleClass("open-drawer");
+
+    var target = event.target;
+    if (target.tagName !== "DIV")
+        target = event.target.parentElement;
+    $(target).css({ "transform": "translate(0px, 0) rotate(20deg) skew(20deg)" });
+    $(target).on('transitionend webkitTransitionEnd oTransitionEnd', function() {
+        // /        $("div.drawer[name="+name+"]").addClass("hidden");
         $(target).toggleClass("invisible");
-         $(".original[name="+name+"]").toggleClass("invisible");
-         $(target).off('transitionend webkitTransitionEnd oTransitionEnd');
+        $(".original[name=" + name + "]").toggleClass("invisible");
+        $(target).off('transitionend webkitTransitionEnd oTransitionEnd');
 
     });
 }
 
-function navListener(name){
-    var all_visible_cloned=$(".parallelogram.cloned:not('.invisible')");
-    all_visible_cloned.css({"transform" :"translate(0px, 0) rotate(20deg) skew(20deg)"});
-    all_visible_cloned.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-        $(".original:not([name="+name+"])").removeClass("invisible");
+function navListener(name) {
+    var all_visible_cloned = $(".parallelogram.cloned:not('.invisible')");
+    all_visible_cloned.css({ "transform": "translate(0px, 0) rotate(20deg) skew(20deg)" });
+    all_visible_cloned.on('transitionend webkitTransitionEnd oTransitionEnd', function() {
+        $(".original:not([name=" + name + "])").removeClass("invisible");
 
-        $(".parallelogram.cloned:not([name="+name+"])").addClass("invisible");
+        $(".parallelogram.cloned:not([name=" + name + "])").addClass("invisible");
 
 
         all_visible_cloned.off('transitionend webkitTransitionEnd oTransitionEnd');
@@ -71,9 +72,9 @@ function navListener(name){
     });
     window.scrollTo(0, 0);
 
-    if(name=="about"){//the about nav button only closes whichever drawer is open
+    if (name == "about") { //the about nav button only closes whichever drawer is open
         $(".drawer").removeClass("open-drawer");
-        $(".drawer").on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+        $(".drawer").on('transitionend webkitTransitionEnd oTransitionEnd', function() {
             $(".drawer").addClass("hidden");
             $(".drawer").off('transitionend webkitTransitionEnd oTransitionEnd')
         });
@@ -81,83 +82,79 @@ function navListener(name){
         //$(".parallelogram.cloned:not([name="+name+"])").addClass("invisible");
         //$(".parallelogram.original:not([name="+name+"])").removeClass("invisible");
 
-    }
-
-
-    else{
-        if(!$(".drawer[name="+name+"]").hasClass("open-drawer")){
+    } else {
+        if (!$(".drawer[name=" + name + "]").hasClass("open-drawer")) {
             console.log("A")
-             $(".original[name="+name+"]").toggleClass("invisible");
+            $(".original[name=" + name + "]").toggleClass("invisible");
 
-             $(".parallelogram.cloned[name="+name+"]").toggleClass("invisible");
+            $(".parallelogram.cloned[name=" + name + "]").toggleClass("invisible");
 
-     
-            $("div:not([name="+name+"]).drawer").removeClass("open-drawer");
 
-            $("div:not([name="+name+"]).drawer").on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                if(!$("div:not([name="+name+"]).drawer").hasClass("open-drawer")){
-                    $("div:not([name="+name+"]).drawer").addClass("hidden");
+            $("div:not([name=" + name + "]).drawer").removeClass("open-drawer");
+
+            $("div:not([name=" + name + "]).drawer").on('transitionend webkitTransitionEnd oTransitionEnd', function() {
+                if (!$("div:not([name=" + name + "]).drawer").hasClass("open-drawer")) {
+                    $("div:not([name=" + name + "]).drawer").addClass("hidden");
                 }
 
-                $("div:not([name="+name+"]).drawer").off('transitionend webkitTransitionEnd oTransitionEnd')
+                $("div:not([name=" + name + "]).drawer").off('transitionend webkitTransitionEnd oTransitionEnd')
             });
-            $("div.drawer[name="+name+"]").removeClass("hidden");
+            $("div.drawer[name=" + name + "]").removeClass("hidden");
 
-            $("div.drawer[name="+name+"]").toggleClass("open-drawer");
-        
-                    $(".parallelogram.cloned[name="+name+"]").css({
-                "transform":"translate("+($('.drawer').width()-5)+"px, 0px) rotate(20deg) skew(20deg)"
+            $("div.drawer[name=" + name + "]").toggleClass("open-drawer");
+
+            $(".parallelogram.cloned[name=" + name + "]").css({
+                "transform": "translate(" + ($('.drawer').width() - 5) + "px, 0px) rotate(20deg) skew(20deg)"
 
             })
-        }
-         else{
+        } else {
 
         }
     }
 
 }
 
-$(window).on('load',function() {
+$(window).on('load', function() {
 
-//$("#navList").css({
-   // "transform":"translate("+(-$("#navList").width()/2.3)+"px,0px) rotate(90deg)"});
+    //$("#navList").css({
+    // "transform":"translate("+(-$("#navList").width()/2.3)+"px,0px) rotate(90deg)"});
 
-$(".original").each(function(idx,el){
-    var button_clone=$("div[name="+$(el).attr("name")+"].original").clone();//clone every nav button to translate it without messing up the nav
-    button_clone.on("click",function(event){
-        clonedListener($(el).attr("name"),event);
+    $(".original").each(function(idx, el) {
+        var button_clone = $("div[name=" + $(el).attr("name") + "].original").clone(); //clone every nav button to translate it without messing up the nav
+        button_clone.on("click", function(event) {
+            clonedListener($(el).attr("name"), event);
 
-    })
-    button_clone.removeClass("original");
-   button_clone.css({
-        "position":"absolute",
-        //"width":$("div[name="+name+"].parallelogram").width(),
-        //"height":$("div[name="+name+"].parallelogram").height(),
-        "background-color":$("div[name="+$(el).attr("name")+"].parallelogram"),
-        //"transform":"rotate(90deg) skew(40deg)",
-        "transform":"rotate(20deg) skew(20deg)",
-        "webkit-transform":"rotate(20deg) skew(20deg)",
+        })
+        button_clone.removeClass("original");
+        button_clone.css({
+            "position": "absolute",
+            //"width":$("div[name="+name+"].parallelogram").width(),
+            //"height":$("div[name="+name+"].parallelogram").height(),
+            "background-color": $("div[name=" + $(el).attr("name") + "].parallelogram"),
+            //"transform":"rotate(90deg) skew(40deg)",
+            "transform": "rotate(20deg) skew(20deg)",
+            "webkit-transform": "rotate(20deg) skew(20deg)",
 
-        "transform-origin":"top left",
-        "top":$("div[name="+$(el).attr("name")+"].original").offset().top,
-        "left":$("div[name="+$(el).attr("name")+"].original").offset().left,
-        "transition": "transform 1s",
+            "transform-origin": "top left",
+            "top": $("div[name=" + $(el).attr("name") + "].original").offset().top,
+            "left": $("div[name=" + $(el).attr("name") + "].original").offset().left,
+            "transition": "transform 1s",
 
         });
-    $("nav").append(button_clone);
-     button_clone.addClass("parallelogram");
+        $("nav").append(button_clone);
+        button_clone.addClass("parallelogram");
 
-     button_clone.addClass("cloned");
+        button_clone.addClass("cloned");
 
-     button_clone.toggleClass("invisible");
+        button_clone.toggleClass("invisible");
 
-});
-
-$(".original").each(function(idx,el){
-    $(el).on("click",function(){
-        navListener($(el).attr("name"));
     });
-})
+
+    $(".original").each(function(idx, el) {
+        $(el).on("click", function() {
+            navListener($(el).attr("name"));
+        });
+    })
 
 
 });
