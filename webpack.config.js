@@ -36,7 +36,7 @@ module.exports = {
                 options: {
                     name: '[hash].[ext]',
                     outputPath: 'css/',
-                    publicPath: url => '../css/' + url
+                    publicPath: url => './css/' + url
                 }
             },
             /*  {
